@@ -3,6 +3,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // Stylesheet
 import './App.scss'
+import 'normalize.css';
 
 // Components
 import Header from './components/Header'
@@ -17,13 +18,19 @@ function App() {
       <Router>
         {/* Header Component */}
         <Header />
-        {/* Home Component */}
-        <Route path="/" component={Home} />
-        {/* MovieDetail Component */}
-        <Route path="/movie/:imdbID" component={MovieDetail} />
-        {/* PageNotFound Component */}
-        <Route path="*" component={PageNotFound} />
-        {/* PageNotFound Component */}
+        {/* Container Component */}
+        <div className="container">
+          {/* Switch */}
+          <Switch>
+            {/* Home Component */}
+            <Route path="/" exact component={Home} />
+            {/* MovieDetail Component */}
+            <Route path="/movie/:imdbID" component={MovieDetail} />
+            {/* PageNotFound Component */}
+            <Route path="*" component={PageNotFound} />
+          </Switch>
+        </div>
+        {/* Footer Component */}
         <Footer />
       </Router>
     </div>
