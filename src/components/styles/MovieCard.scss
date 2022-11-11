@@ -3,6 +3,15 @@
 .card-item {
     background: $secondary-color;
     cursor: pointer;
+    transition: all 0.3s;
+    min-height: 400px;
+    height: 100%;
+    margin: 10px;
+
+    &:hover {
+        transform: scale(1.05);
+        transition: all 0.3s;
+    }
 }
 
 .card-inner {
@@ -16,7 +25,8 @@
     }
     
     .card-bottom {
-        padding: 20px;
+        padding: 5px 0px 0px 10px;
+        height: 150px;
         .card-info {
             color: $font-primary;
             h4 {

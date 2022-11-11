@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import './styles/MovieCard.scss'
 
 const MovieCard = (props) => {
@@ -7,21 +8,23 @@ const MovieCard = (props) => {
     return (
         /* card-item */
         <div className="card-item">
-            {/* card-inner */}
-            <div className="card-inner">
-                {/* card-top */}
-                <div className="card-top">
-                    <img src={data.Poster} alt={data.Title} />
-                </div>
-                {/* card-bottom */}
-                <div className="card-bottom">
-                    {/* card-info */}
-                    <div className="card-info">
-                        <h4>{data.Title}</h4>
-                        <p>{data.Year}</p>
+            <Link to={`/movie/${data.imdbID}`}>
+                {/* card-inner */}
+                <div className="card-inner">
+                    {/* card-top */}
+                    <div className="card-top">
+                        <img src={data.Poster} alt={data.Title} />
+                    </div>
+                    {/* card-bottom */}
+                    <div className="card-bottom">
+                        {/* card-info */}
+                        <div className="card-info">
+                            <h4>{data.Title}</h4>
+                            <p>{data.Year}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </Link>
         </div>
     )
 }

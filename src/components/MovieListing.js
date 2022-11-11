@@ -1,5 +1,8 @@
 import React from 'react'
 import MovieCard from './MovieCard'
+// Import Slider Component
+import Slider from 'react-slick'
+import Settings from '../common/settings'
 // Import useSelector 
 import { useSelector } from 'react-redux'
 // Import the getAllMovies fn
@@ -8,6 +11,10 @@ import './styles/MovieListing.scss'
 
 
 const MovieListing = () => {
+
+    // Setting object for the Slider Component
+
+
     // Get all the movies from the getAllMovies fn
     const movies = useSelector(getAllMovies)
     const shows = useSelector(getAllShows)
@@ -47,13 +54,17 @@ const MovieListing = () => {
             <div className="movie-list">
                 <h2>Movies</h2>
                 {/* movie-container */}
-                <div className="movie-container">{renderMovies}</div>
+                <div className="movie-container">
+                    <Slider {...Settings}>{renderMovies}</Slider>
+                </div>
             </div>
             {/* show-list */}
             <div className="show-list">
                 <h2>Shows</h2>
                 {/* movie-container */}
-                <div className="movie-container">{renderShows}</div>
+                <div className="movie-container">
+                    <Slider {...Settings}>{renderShows}</Slider>
+                </div>
             </div>
         </div>
     )
