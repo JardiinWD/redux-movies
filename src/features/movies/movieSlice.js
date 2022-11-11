@@ -5,36 +5,30 @@ import movieApi from "../../common/apis/movieApi"
 import { APIKey } from '../../common/apis/movieApiKey'
 
 // Function that allowed me to fetch movies
-export const fetchAsyncMovies = createAsyncThunk('movies/fetchAsyncMovies', async () => {
-    // Create the variable Text for the dynamic query
-    const movieText = "Harry"
+export const fetchAsyncMovies = createAsyncThunk('movies/fetchAsyncMovies', async (term) => {
     // Take the response from axios
     // &s=${movieText} => Movie title to search for
     // &type=movie` => Type of result to return (It can be a movie, serie etc)
-    const response = await movieApi.get(`?apiKey=${APIKey}&s=${movieText}&type=movie`).catch((error) => console.log(error))
+    const response = await movieApi.get(`?apiKey=${APIKey}&s=${term}&type=movie`).catch((error) => console.log(error))
     return response.data
 })
 
 // Function that allowed me to fetch Series
-export const fetchAsyncShows = createAsyncThunk('movies/fetchAsyncShows', async () => {
-    // Create the variable Text for the dynamic query
-    const seriesText = "Friends"
+export const fetchAsyncShows = createAsyncThunk('movies/fetchAsyncShows', async (term) => {
     // Take the response from axios
     // &s=${seriesText} => Serie title to search for
     // &type=series` => Type of result to return (It can be a movie, serie etc)
-    const response = await movieApi.get(`?apiKey=${APIKey}&s=${seriesText}&type=series`).catch((error) => console.log(error))
+    const response = await movieApi.get(`?apiKey=${APIKey}&s=${term}&type=series`).catch((error) => console.log(error))
     return response.data
 })
 
-// Function that allowed me to fetch Series
+// Function that allowed me to fetch A movie or a serie
 export const fetchAsyncMovieOrShowDetail = createAsyncThunk('movies/fetchAsyncMovieOrShowDetail', async (id) => {
     // Take the response from axios
     // &i=${id}$Plot=full => Return the plot of the serie/movie, filtered by id
     const response = await movieApi.get(`?apiKey=${APIKey}&i=${id}&Plot=full`).catch((error) => console.log(error))
     return response.data
 })
-
-
 
 // Create the initialState object
 const initialState = {

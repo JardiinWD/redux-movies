@@ -7,13 +7,15 @@ import { addMovies, fetchAsyncMovies, fetchAsyncShows } from '../features/movies
 const Home = () => {
     // Import the useDispatch fn into the dispatch variable
     const dispatch = useDispatch()
+    const movieText = "Harry"
+    const showText = "Friends"
 
     // Invoke the useEffect fn for the fetchAsyncMovies
     useEffect(() => {
         // Invoke the fetchAsyncMovies 
-        dispatch(fetchAsyncMovies())
+        dispatch(fetchAsyncMovies(movieText))
         // Invoke the fetchAsyncMovies 
-        dispatch(fetchAsyncShows())
+        dispatch(fetchAsyncShows(showText))
         // use the dispatch as a dependency
     }, [dispatch])
 

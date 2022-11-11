@@ -2,18 +2,29 @@ import React, { useState } from 'react'
 import './styles/Header.scss'
 import User from '../images/user.png'
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { fetchAsyncMovies, fetchAsyncShows } from '../features/movies/movieSlice'
 
 
 
 const Header = () => {
 
-    // Text state for the search-bar
+    // Text state for the search-bar. Initially as an empty string
     const [term, setTerm] = useState("")
+    // Create the Dispatch variable
+    const dispatch = useDispatch()
 
     // submitHandler Function
     const submitHandler = (event) => {
+        // Prevent Refresh
         event.preventDefault()
-        console.log(term);
+        if (term === "") return
+        // use the term as a param for the fetchAsyncMovies
+        dispatch(fetchAsyncMovies(term))
+        // use the term as a param for the fetchAsyncShows
+        dispatch(fetchAsyncShows(term))
+        // Clear of term field
+        setTerm('')
     }
 
     return (
