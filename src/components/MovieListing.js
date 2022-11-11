@@ -3,15 +3,17 @@ import MovieCard from './MovieCard'
 // Import useSelector 
 import { useSelector } from 'react-redux'
 // Import the getAllMovies fn
-import { getAllMovies } from '../features/movies/movieSlice'
+import { getAllMovies, getAllShows } from '../features/movies/movieSlice'
 import './styles/MovieListing.scss'
 
 
 const MovieListing = () => {
     // Get all the movies from the getAllMovies fn
     const movies = useSelector(getAllMovies)
+    const shows = useSelector(getAllShows)
     // Create an empty variable for the renderMovies
-    let renderMovies = ""
+    let renderMovies, renderShows = ""
+
     // Control if there is a response and save it into renderMovies variable
     renderMovies = movies.Response === "True" ? (
         // If it's true then use the Map method for filtering
@@ -25,6 +27,19 @@ const MovieListing = () => {
         </div>
     )
 
+    // Control if there is a response and save it into renderMovies variable
+    renderShows = shows.Response === "True" ? (
+        // If it's true then use the Map method for filtering
+        shows.Search.map((serie, index) => {
+            return <MovieCard key={index} data={serie} />
+        })
+    ) : (
+        // Else release an error
+        <div className="shows-error">
+            <h3>{shows.Error}</h3>
+        </div>
+    )
+
     return (
         /* movie-wrapper */
         <div className="movie-wrapper">
@@ -32,9 +47,13 @@ const MovieListing = () => {
             <div className="movie-list">
                 <h2>Movies</h2>
                 {/* movie-container */}
-                <div className="movie-container">
-                    {renderMovies}
-                </div>
+                <div className="movie-container">{renderMovies}</div>
+            </div>
+            {/* show-list */}
+            <div className="show-list">
+                <h2>Shows</h2>
+                {/* movie-container */}
+                <div className="movie-container">{renderShows}</div>
             </div>
         </div>
     )

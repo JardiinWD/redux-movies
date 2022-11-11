@@ -15,9 +15,21 @@ export const fetchAsyncMovies = createAsyncThunk('movies/fetchAsyncMovies', asyn
     return response.data
 })
 
+// Function that allowed me to fetch Series
+export const fetchAsyncShows = createAsyncThunk('movies/fetchAsyncShows', async () => {
+    // Create the variable Text for the dynamic query
+    const seriesText = "Friends"
+    // Take the response from axios
+    // &s=${movieText} => Movie title to search for
+    // &type=movie` => Type of result to return (It can be a movie, serie etc)
+    const response = await movieApi.get(`?apiKey=${APIKey}&s=${seriesText}&type=series`).catch((error) => console.log(error))
+    return response.data
+})
+
 // Create the initialState object
 const initialState = {
-    movies: {}, // Movies Declare as an empty Objec
+    movies: {}, // Movies Declare as an empty Object
+    shows: {} // Series Declare as an empty Object
 }
 
 const movieSlice = createSlice({
@@ -40,6 +52,11 @@ const movieSlice = createSlice({
             console.log("Fetched Successfully");
             return { ...state, movies: payload }
         },
+        // When the fetchAsyncShows get the result
+        [fetchAsyncShows.fulfilled]: (state, { payload }) => {
+            console.log("Fetched Successfully");
+            return { ...state, shows: payload }
+        },
         // When the fetchAsyncMovies call is rejected
         [fetchAsyncMovies.rejected]: () => {
             console.error("Rejected");
@@ -49,7 +66,9 @@ const movieSlice = createSlice({
 
 // Export my addMovies fn
 export const { addMovies } = movieSlice.actions
-// Esport the getAllMovies fn
+// Export the getAllMovies fn
 export const getAllMovies = (state) => state.movies.movies
+// Export the getAllShows fn
+export const getAllShows = (state) => state.movies.shows
 // Export my Slicer as movieSlice.reducer
 export default movieSlice.reducer
