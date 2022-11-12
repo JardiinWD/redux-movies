@@ -1,70 +1,95 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React Redux Movies
 
-## Available Scripts
+This project was created for understand Redux toolkit and Axios library. 
+It's an easy project that allows users to find a movie and its spec (like rating, stars, actors etc.)  
 
-In the project directory, you can run:
+`DESKTOP` version
 
-### `npm start`
+![Desktop Version](./src/images/Desktop.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+`TABLET` version
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+![TABLET Version](./src/images/Tablet.png)
 
-### `npm test`
+`SMARTPHONE` version
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![Smartphone Version](./src/images/Smartphone.png)
 
-### `npm run build`
+## Documentation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+This is how I've divided my `src` folder :
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+INSERISCI IMMAGINE `FOLDER`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+`common` : It's the folder where I've created all the common utilities for my project, 
+like the `API's` folder and the `color.scss`
 
-### `npm run eject`
+`components` : It's the folder where all my components are based.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+`features` : It's the folder where my `redux slice` is based.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Movie Details
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Every movie was `wrapped` inside a `routing component` that allows user to see the details of every movie
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+`DESKTOP` Details 
 
-## Learn More
+![Desktop Details](./src/images/Detail-xl.png)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+`TABLET` Details
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+![Tablet Details](./src/images/Detail-md.png)
 
-### Code Splitting
+`SMARTPHONE` Details
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+![Smartphone Details](./src/images/Detail-sm.png)
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## API Reference
 
-### Making a Progressive Web App
+#### Website
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+I have tooken the **API** from **OMDB**
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+| Const     | Type     |  Description               |
+| :-------- | :------- | :------------------------- |
+| `movieApiKey` | `string` | **Required**. Your API key |
 
-### Deployment
+#### Functions
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Takes the `movies` from **OMDB**
 
-### `npm run build` fails to minify
+```js
+const fetchAsyncMovies = createAsyncThunk('movies/fetchAsyncMovies', async (term) => {
+    // Take the response from axios
+    // &s=${movieText} => Movie title to search for
+    // &type=movie` => Type of result to return (It can be a movie, serie etc)
+    const response = await movieApi.get(`?apiKey=${APIKey}&s=${term}&type=movie`)
+    return response.data
+})
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Takes the `shows` from **OMDB**
+
+```js
+const fetchAsyncShows = createAsyncThunk('movies/fetchAsyncShows', async (term) => {
+    // Take the response from axios
+    // &s=${seriesText} => Serie title to search for
+    // &type=series` => Type of result to return (It can be a movie, serie etc)
+    const response = await movieApi.get(`?apiKey=${APIKey}&s=${term}&type=series`)
+    return response.data
+})
+```
+
+Takes the details of a `shows` or a `movies` from **OMDB**
+
+```js
+const fetchAsyncMovieOrShowDetail = createAsyncThunk('movies/fetchAsyncMovieOrShowDetail', async (id) => {
+    // Take the response from axios
+    // &i=${id}$Plot=full => Return the plot of the serie/movie, filtered by id
+    const response = await movieApi.get(`?apiKey=${APIKey}&i=${id}&Plot=full`)
+    return response.data
+})
+```

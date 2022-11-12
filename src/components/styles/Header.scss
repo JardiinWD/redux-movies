@@ -29,7 +29,7 @@
     form {
         display: flex;
         justify-content: center;
-        width: 70%;
+        width: 80%;
         button {
             padding: 0px 8px;
             font-size: 20px;
@@ -43,5 +43,17 @@
         padding: 5px 5px 5px 10px;
         height: 38px;
         outline: none;
+    }
+}
+
+@media screen and (max-width: 768px)  {
+    .search-bar {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 576px)  {
+    .search-bar {
+        width: 70%;
     }
 }
